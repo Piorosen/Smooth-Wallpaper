@@ -21,7 +21,15 @@ namespace Smooth_Wallpaper
                 Layer = new List<Core.Element>()
                 {
                     new Core.Element(new Bitmap(@"C:\Users\aoika\Desktop\git\Smooth-Wallpaper\Smooth-Wallpaper\1.png")
-                    , new Size(2,2), new Point(100, 100))
+                    , new Size(2,2), new Point(200, 100))
+                    {
+                        PositionConvert = (Point location, ulong time) =>
+                        {
+                            var ee = Math.Sin(time) * 200;
+                            return new Point(location.X + (int)ee, 100);
+                        }
+
+                    }
                 }
             };
 
@@ -30,9 +38,19 @@ namespace Smooth_Wallpaper
 
         Core.Wallpaper wallpaper = new Core.Wallpaper();
 
-        private void Button1_Click(object sender, EventArgs e)
+        private async void Button1_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = wallpaper.GetWallpaper();
+            await Task.Run(() =>
+            {
+                foreach (var image in wallpaper.GetWallpaper())
+                {
+                    this.Invoke(new MethodInvoker(() =>
+                    {
+                        pictureBox1.Image = image;
+                    }));
+                }
+            });
+            
         }
     }
 }

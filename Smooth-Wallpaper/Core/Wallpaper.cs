@@ -19,12 +19,15 @@ namespace Smooth_Wallpaper.Core
             TimeLayer.Sort((a, b) => a.Time.CompareTo(b.Time));
         }
 
-        public Bitmap GetWallpaper()
+        public IEnumerable<Bitmap> GetWallpaper()
         {
-            var time = GetTodayTime();
-            var paper = GetTimePaper(time);
-
-            return GetTimeBitmap(paper, time, Color.FromArgb(255,255,255));
+            for (int i = 0; i < 100; i++)
+            {
+                var time = GetTodayTime();
+                var paper = GetTimePaper(time);
+                yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
+                Task.Delay(10).Wait();
+            }
         }
 
         protected Paper GetTimePaper(ulong time)
