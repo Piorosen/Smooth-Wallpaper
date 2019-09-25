@@ -21,16 +21,12 @@ namespace Smooth_Wallpaper.Core
 
         public IEnumerable<Bitmap> GetWallpaper()
         {
-            var s = DateTime.Now.Ticks;
-
-            var time = GetTodayTime();
-            var paper = GetTimePaper(time);
-            yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
-
-            var e = DateTime.Now.Ticks;
-
-            var range = (e - s) / TimeSpan.TicksPerMillisecond;
-
+            for (; ; )
+            {
+                var time = GetTodayTime();
+                var paper = GetTimePaper(time);
+                yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
+            }
         }
 
         protected Paper GetTimePaper(ulong time)
