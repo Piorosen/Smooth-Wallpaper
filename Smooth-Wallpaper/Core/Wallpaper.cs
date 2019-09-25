@@ -66,7 +66,6 @@ namespace Smooth_Wallpaper.Core
                 }
             }
 
-
             return image;
         }
 

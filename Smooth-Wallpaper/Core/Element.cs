@@ -12,7 +12,7 @@ namespace Smooth_Wallpaper.Core
         public Bitmap Image;
 
         public Point Location = new Point();
-        public SizeF Scale = new SizeF(1, 1);
+        public SizeF Scale = new SizeF(1.0F, 1.0F);
 
         public double Rotate = 0;
 
@@ -23,8 +23,20 @@ namespace Smooth_Wallpaper.Core
             this.Location = Location;
         }
 
-        public Func<Point, ulong, Point> PositionConvert = (location, time) => location;
-        public Func<ulong, SizeF, double, Bitmap, Bitmap> ImageConvert = (time, scale, rot, bitmap) => bitmap;
+        public Func<Point, ulong, Point> PositionConvert = (location, time) =>
+        {
+            return location;
+        };
+
+        public Func<ulong, SizeF, double, Bitmap, Bitmap> ImageConvert = (time, scale, rot, bitmap) =>
+        {
+            Bitmap result = bitmap.Clone() as Bitmap;
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                bitmap.SetResolution(g.DpiX * (1.0F / scale.Width), g.DpiY * (1.0F / scale.Height));
+            }
+            return bitmap;
+        };
 
         public Point GetLocation(ulong time)
         {
