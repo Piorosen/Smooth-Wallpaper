@@ -25,7 +25,8 @@ namespace Smooth_Wallpaper
                     {
                         PositionConvert = (Point location, ulong time) =>
                         {
-                            var ee = Math.Sin(time) * 200;
+                            var ee = Math.Sin((double)time / 1000) * 200;
+                            Console.WriteLine(new Point(location.X + (int)ee, 100));
                             return new Point(location.X + (int)ee, 100);
                         }
 
@@ -38,19 +39,27 @@ namespace Smooth_Wallpaper
 
         Core.Wallpaper wallpaper = new Core.Wallpaper();
 
-        private async void Button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            await Task.Run(() =>
+            foreach (var image in wallpaper.GetWallpaper())
             {
-                foreach (var image in wallpaper.GetWallpaper())
-                {
-                    this.Invoke(new MethodInvoker(() =>
-                    {
-                        pictureBox1.Image = image;
-                    }));
-                }
-            });
-            
+                var p = pictureBox1.BackgroundImage;
+                pictureBox1.BackgroundImage = image;
+                pictureBox1.Update();
+                p?.Dispose();
+            }
         }
+
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            var bitmap = new Bitmap(1920, 1080);
+            for (int i = 0; i < 100; i++)
+            {
+                bitmap = new Bitmap(1920, 1080);
+                
+            }
+        }
+
     }
 }

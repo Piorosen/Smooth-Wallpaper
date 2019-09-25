@@ -21,13 +21,16 @@ namespace Smooth_Wallpaper.Core
 
         public IEnumerable<Bitmap> GetWallpaper()
         {
-            for (int i = 0; i < 100; i++)
-            {
-                var time = GetTodayTime();
-                var paper = GetTimePaper(time);
-                yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
-                Task.Delay(10).Wait();
-            }
+            var s = DateTime.Now.Ticks;
+
+            var time = GetTodayTime();
+            var paper = GetTimePaper(time);
+            yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
+
+            var e = DateTime.Now.Ticks;
+
+            var range = (e - s) / TimeSpan.TicksPerMillisecond;
+
         }
 
         protected Paper GetTimePaper(ulong time)
@@ -49,7 +52,7 @@ namespace Smooth_Wallpaper.Core
         protected ulong GetTodayTime()
         {
             var time = DateTime.Now.TimeOfDay;
-            ulong p = Convert.ToUInt64(time.TotalSeconds);
+            ulong p = Convert.ToUInt64(time.TotalMilliseconds);
 
             return p;
         }
@@ -65,7 +68,7 @@ namespace Smooth_Wallpaper.Core
                 
                 foreach (var p in paper.Layer)
                 {
-                    g.DrawImage(p.GetImage(time), p.GetLocation(time));
+                    g.DrawImage(p.Image, p.GetLocation(time));
                 }
             }
 
