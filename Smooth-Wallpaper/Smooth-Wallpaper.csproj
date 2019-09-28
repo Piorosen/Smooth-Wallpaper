@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Element.cs" />
+    <Compile Include="Core\Mode.cs" />
     <Compile Include="Core\Paper.cs" />
     <Compile Include="Core\Wallpaper.cs" />
     <Compile Include="Form1.cs">
