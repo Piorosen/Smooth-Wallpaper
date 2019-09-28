@@ -16,7 +16,6 @@ namespace Smooth_Wallpaper.Core
         public void AddWallPaper(Paper layer)
         {
             TimeLayer.Add(layer);
-            TimeLayer.Sort((a, b) => a.Time.CompareTo(b.Time));
         }
 
         public IEnumerable<Bitmap> GetWallpaper()
@@ -29,17 +28,16 @@ namespace Smooth_Wallpaper.Core
             }
         }
 
-        protected Paper GetTimePaper(ulong time)
+        protected List<Paper> GetTimePaper(ulong time)
         {
-            Paper result = TimeLayer.Count != 0 ? TimeLayer[0] : new Paper();
+            List<Paper> result = new List<Paper>();
 
             foreach (var p in TimeLayer)
             {
-                if (p.Time > time)
+                if (p.StartTime <= time && time < p.EndTime)
                 {
-                    break;
+                    result.Add(p);
                 }
-                result = p;
             }
 
             return result;
@@ -53,7 +51,7 @@ namespace Smooth_Wallpaper.Core
             return p;
         }
 
-        protected Bitmap GetTimeBitmap(Paper paper, ulong time, Color baseColor)
+        protected Bitmap GetTimeBitmap(List<Paper> paper, ulong time, Color baseColor)
         {
             var bound = Screen.AllScreens[1].Bounds;
             var image = new Bitmap(bound.Width, bound.Height);
@@ -61,8 +59,9 @@ namespace Smooth_Wallpaper.Core
             using (Graphics g = Graphics.FromImage(image))
             {
                 g.FillRectangle(new SolidBrush(baseColor), new Rectangle(0, 0, image.Width, image.Height));
-                
-                foreach (var p in paper.Layer)
+
+                foreach (var layer in paper)
+                foreach (var p in layer.Layer)
                 {
                     g.DrawImage(p.Image, p.GetLocation(time));
                 }

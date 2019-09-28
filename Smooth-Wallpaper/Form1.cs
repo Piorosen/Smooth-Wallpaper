@@ -17,7 +17,8 @@ namespace Smooth_Wallpaper
             InitializeComponent();
             var p = new Core.Paper
             {
-                Time = 0,
+                StartTime = 0,
+                EndTime = 1000,
                 Layer = new List<Core.Element>()
                 {
                     new Core.Element(new Bitmap(@"C:\Users\aoika\Desktop\git\Smooth-Wallpaper\Smooth-Wallpaper\1.png")

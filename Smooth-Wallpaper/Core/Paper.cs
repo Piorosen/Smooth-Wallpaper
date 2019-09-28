@@ -9,7 +9,15 @@ namespace Smooth_Wallpaper.Core
 {
     public class Paper
     {
-        public ulong Time;
+        /// <summary>
+        /// Second
+        /// </summary>
+        public ulong StartTime;
+        /// <summary>
+        /// Second
+        /// </summary>
+        public ulong EndTime;
+
         public List<Element> Layer = new List<Element>();
     }
 }

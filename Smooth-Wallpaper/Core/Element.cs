@@ -48,5 +48,10 @@ namespace Smooth_Wallpaper.Core
             return ImageConvert(time, Scale, Rotate, Image);
         }
 
+        public (Point Position, Bitmap Image) DrawBitmap(ulong time)
+        {
+            return (GetLocation(time), GetImage(time));
+        }
+
     }
 }
