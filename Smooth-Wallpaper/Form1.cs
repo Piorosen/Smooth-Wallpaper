@@ -18,7 +18,7 @@ namespace Smooth_Wallpaper
             var p = new Core.Paper
             {
                 StartTime = 0,
-                EndTime = 1000,
+                EndTime = 60 * 60 * 24 * 1000,
                 Layer = new List<Core.Element>()
                 {
                     new Core.Element(new Bitmap(@"C:\Users\aoika\Desktop\git\Smooth-Wallpaper\Smooth-Wallpaper\1.png")
@@ -44,8 +44,8 @@ namespace Smooth_Wallpaper
         {
             foreach (var image in wallpaper.GetWallpaper())
             {
-                var p = pictureBox1.BackgroundImage;
-                pictureBox1.BackgroundImage = image;
+                var p = pictureBox1.Image;
+                pictureBox1.Image = image;
                 pictureBox1.Update();
                 p?.Dispose();
             }
@@ -54,12 +54,6 @@ namespace Smooth_Wallpaper
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            var bitmap = new Bitmap(1920, 1080);
-            for (int i = 0; i < 100; i++)
-            {
-                bitmap = new Bitmap(1920, 1080);
-                
-            }
         }
 
     }

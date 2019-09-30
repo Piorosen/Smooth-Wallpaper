@@ -63,7 +63,8 @@ namespace Smooth_Wallpaper.Core
                 foreach (var layer in paper)
                 foreach (var p in layer.Layer)
                 {
-                    g.DrawImage(p.Image, p.GetLocation(time));
+                    var e = p.DrawBitmap(time);
+                    g.DrawImage(e.Image, e.Position);
                 }
             }
 
