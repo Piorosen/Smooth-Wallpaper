@@ -16,7 +16,26 @@ namespace Smooth_Wallpaper.Core.Library.Import
         public Point Location { get; private set; }
 
         public Bitmap Image { get; private set; }
-        public string Code { get; private set; }
+        public string Code
+        {
+            get
+            {
+                string result = OriginCode;
+
+                var change = new List<string>
+                {
+                    "ValueChange",
+                    "PositionConvert",
+                    "ImageConvert"
+                };
+
+                foreach (var n in change)
+                {
+                    result = result.Replace(n, $"{n}_{Name}");
+                }
+                return result;
+            }
+        }
 
         public string OriginCode { get; private set; }
 
@@ -29,9 +48,23 @@ namespace Smooth_Wallpaper.Core.Library.Import
             }
         }
 
-        public ElementInfo(SizeF Scale, Point Location, string Image, string Code)
+        public ElementInfo SetName(string name)
         {
-            Name = Count.ToString();
+            ElementInfo a = new ElementInfo(this.Scale, this.Location, this.Image, this.OriginCode)
+            {
+                Name = name
+            };
+            return a;
+        }
+
+        public ElementInfo(SizeF Scale, Point Location, string Image, string Code, string name = null)
+        {
+            Name = name;
+            if (name == null)
+            {
+                Name = Count.ToString();
+            }
+            
 
             this.Scale = Scale;
             this.Location = Location;
@@ -39,8 +72,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
 
             using (StreamReader sr = new StreamReader(Code))
             {
-                this.Code = sr.ReadToEnd();
-                this.OriginCode = Code;
+                this.OriginCode = sr.ReadToEnd();
             }
 
             /// public Action<Element, ulong> ValueChange
@@ -54,19 +86,18 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 "ImageConvert"
             };
 
-            foreach (var n in change)
-            {
-                this.Code = this.Code.Replace(n, $"{n}_{Name}");
-            }
         }
 
-        public ElementInfo(SizeF Scale, Point Location, Bitmap Image, string Code)
+        public ElementInfo(SizeF Scale, Point Location, Bitmap Image, string Code, string name = null)
         {
-            Name = Count.ToString();
+            Name = name;
+            if (name == null)
+            {
+                Name = Count.ToString();
+            }
 
             this.Scale = Scale;
             this.Location = Location;
-            this.Code = Code;
             this.OriginCode = Code;
 
             this.Image = Image;

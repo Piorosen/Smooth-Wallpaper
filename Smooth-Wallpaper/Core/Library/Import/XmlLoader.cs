@@ -52,6 +52,9 @@ namespace Smooth_Wallpaper.Core.Library.Import
             string Image = string.Empty;
             string Code = string.Empty;
 
+            string name = string.Empty;
+
+            name = node.Attributes["Id"].Value;
             Location.X = int.Parse(node[nameof(Location)].Attributes[nameof(Location.X)].Value);
             Location.Y = int.Parse(node[nameof(Location)].Attributes[nameof(Location.Y)].Value);
 
@@ -61,7 +64,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
             Image = node[nameof(Image)].InnerText;
             Code = node[nameof(Code)].InnerText;
 
-            return new ElementInfo(Scale, Location, Image, Code);
+            return new ElementInfo(Scale, Location, Image, Code).SetName(name);
         }
 
     }

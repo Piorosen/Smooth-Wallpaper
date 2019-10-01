@@ -48,7 +48,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 Console.WriteLine("Success");
             }
 
-            if (LoadDll(@$"{Directory.GetCurrentDirectory()}\core.dll", out Type[] value))
+            if (LoadDll(@$"{currentDirectory}\core.dll", out Type[] value))
             {
                 Console.WriteLine("!!!");
             }

@@ -13,7 +13,7 @@ namespace Smooth_Wallpaper.Core.Library.Export
     public class ExportManager
     {/// <WallPaper>
      ///     <Paper Start="" Length="">
-     ///         <Element>
+     ///         <Element Id="">
      ///             <Location X="" Y="">
      ///             </Location>
      ///             <Size Width="" Height="">
@@ -53,7 +53,7 @@ namespace Smooth_Wallpaper.Core.Library.Export
                     foreach (var e in p.Layer)
                     {
                         writer.WriteStartElement("Element");
-
+                        writer.WriteAttributeString("Id", e.Name);
                         writer.WriteStartElement(nameof(e.Location));
                         writer.WriteAttributeString(nameof(e.Location.X), e.Location.X.ToString());
                         writer.WriteAttributeString(nameof(e.Location.Y), e.Location.Y.ToString());
