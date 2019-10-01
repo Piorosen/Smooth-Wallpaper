@@ -33,6 +33,9 @@ namespace Smooth_Wallpaper.Core
             ///             <Image>Path</Image>
             ///             <ImageConvert>Code Path</ImageConvert>
             ///             <PositionConvert>Code Path</PositionConvert>
+            ///             <ValueChange>Code Path</ValueChange>
+            ///             or
+            ///             <Code>Code</code>
             ///         </Element>
             ///     </Paper>
             /// </WallPaper>

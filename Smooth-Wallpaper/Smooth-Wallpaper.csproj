@@ -83,6 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Element.cs" />
+    <Compile Include="Core\Library\Import\Assemble.cs" />
+    <Compile Include="Core\Library\Import\Build.cs" />
+    <Compile Include="Core\Library\Import\ImportManager.cs" />
+    <Compile Include="Core\Library\Import\XmlLoader.cs" />
     <Compile Include="Core\Mode.cs" />
     <Compile Include="Core\Paper.cs" />
     <Compile Include="Core\Wallpaper.cs" />
@@ -133,6 +137,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Library\Export\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
