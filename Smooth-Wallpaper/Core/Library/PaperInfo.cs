@@ -8,9 +8,10 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class PaperInfo
     {
-        public ulong StartTime;
-        public ulong Length;
 
-        public List<ElementInfo> Layer = new List<ElementInfo>();
+        public ulong StartTime { get; private set; }
+        public ulong Length { get; private set; }
+
+        public List<ElementInfo> Layer { get; private set; } = new List<ElementInfo>();
     }
 }

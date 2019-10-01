@@ -8,7 +8,12 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class Assemble
     {
-        
+        public string Integrate(List<PaperInfo> papers)
+        {
+
+
+            return string.Empty;
+        }
 
     }
 }

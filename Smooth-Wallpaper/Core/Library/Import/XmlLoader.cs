@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Smooth_Wallpaper.Core.Library.Import
 {
-    class XmlLoader
+    public class XmlLoader
     {
+        public List<PaperInfo> Load(string filename)
+        {
+
+
+            return new List<PaperInfo>();
+        }
+
+
     }
 }
