@@ -18,6 +18,8 @@ namespace Smooth_Wallpaper.Core.Library.Import
         public Bitmap Image { get; private set; }
         public string Code { get; private set; }
 
+        public string OriginCode { get; private set; }
+
         private static int _count = 0;
         private static int Count
         {
@@ -38,11 +40,13 @@ namespace Smooth_Wallpaper.Core.Library.Import
             using (StreamReader sr = new StreamReader(Code))
             {
                 this.Code = sr.ReadToEnd();
+                this.OriginCode = Code;
             }
 
             /// public Action<Element, ulong> ValueChange
             /// public Func<Point, ulong, Point> PositionConvert
             /// public Func<ulong, SizeF, double, Bitmap, Bitmap> ImageConvert
+
 
             var change = new List<string>
             {

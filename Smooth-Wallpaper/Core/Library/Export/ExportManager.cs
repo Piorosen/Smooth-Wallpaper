@@ -1,6 +1,8 @@
 ﻿using Smooth_Wallpaper.Core.Library.Import;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +28,17 @@ namespace Smooth_Wallpaper.Core.Library.Export
      ///         </Element>
      ///     </Paper>
      /// </WallPaper>
-        public bool Export(string filename, List<PaperInfo> papers)
+        public bool Export(string filename, string type, List<PaperInfo> papers)
         {
+            string directory = Path.Combine(Path.GetDirectoryName(filename), type);
+            if (Directory.Exists(directory))
+            {
+                Directory.Delete(directory, true);
+            }
+
+            Directory.CreateDirectory(directory);
+
+
             using (var writer = XmlWriter.Create(filename))
             {
                 writer.WriteStartDocument();
@@ -53,8 +64,8 @@ namespace Smooth_Wallpaper.Core.Library.Export
                         writer.WriteAttributeString(nameof(e.Scale.Height), e.Scale.Height.ToString());
                         writer.WriteEndElement();
 
-                        writer.WriteElementString(nameof(e.Image), e.Image.ToString());
-                        writer.WriteElementString(nameof(e.Code), e.Code);
+                        writer.WriteElementString(nameof(e.Image), SaveBitmap(e.Image, directory));
+                        writer.WriteElementString(nameof(e.Code), SaveCode(e.Code, directory));
 
                         writer.WriteEndElement();
                     }
@@ -67,6 +78,16 @@ namespace Smooth_Wallpaper.Core.Library.Export
             }
 
             return true;
+        }
+
+        string SaveBitmap(Bitmap image, string dir)
+        {
+            return dir;
+        }
+
+        string SaveCode(string code, string dir)
+        {
+            return dir;
         }
     }
 }
