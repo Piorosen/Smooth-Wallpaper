@@ -86,6 +86,7 @@
     <Compile Include="Core\Library\Import\Assemble.cs" />
     <Compile Include="Core\Library\Import\Build.cs" />
     <Compile Include="Core\Library\Import\ImportManager.cs" />
+    <Compile Include="Core\Library\Import\PaperInfo.cs" />
     <Compile Include="Core\Library\Import\XmlLoader.cs" />
     <Compile Include="Core\Mode.cs" />
     <Compile Include="Core\Paper.cs" />

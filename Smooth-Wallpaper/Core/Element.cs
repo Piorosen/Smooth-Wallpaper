@@ -53,7 +53,7 @@ namespace Smooth_Wallpaper.Core
 
         public Action<Element, ulong> ValueChange = (element, time) =>
         {
-        
+            element.Rotate = (time / 1000.0) * 90 % 360;
         };
 
         public Func<Point, ulong, Point> PositionConvert = (location, time) =>
@@ -76,7 +76,7 @@ namespace Smooth_Wallpaper.Core
         {
             var image = ImageConvert(time, Scale, Rotate, Image);
             
-            return RotateImage(image, new PointF(image.Width / 2, image.Height / 2), 30);
+            return RotateImage(image, new PointF(image.Width / 2, image.Height / 2), (float)Rotate);
         }
 
         public (Point Position, Bitmap Image) DrawBitmap(ulong time)

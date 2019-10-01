@@ -19,27 +19,7 @@ namespace Smooth_Wallpaper.Core
             XmlDocument document = new XmlDocument();
             // document.Load(xml);
 
-            /// <WallPaper>
-            ///     <Paper Start="" End="">
-            ///         <Element>
-            ///             <Location>
-            ///                 <X></X>
-            ///                 <Y></Y>
-            ///             </Location>
-            ///             <Size>
-            ///                 <Width></Width>
-            ///                 <Height></Height>
-            ///             </Size>
-            ///             <Image>Path</Image>
-            ///             <ImageConvert>Code Path</ImageConvert>
-            ///             <PositionConvert>Code Path</PositionConvert>
-            ///             <ValueChange>Code Path</ValueChange>
-            ///             or
-            ///             <Code>Code</code>
-            ///         </Element>
-            ///     </Paper>
-            /// </WallPaper>
-            /// 
+            
 
 
             return true;
