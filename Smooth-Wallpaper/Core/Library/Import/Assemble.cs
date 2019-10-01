@@ -8,12 +8,48 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class Assemble
     {
-        public string Integrate(List<PaperInfo> papers)
+        public string Integrate(string xml)
         {
+            XmlLoader loader = new XmlLoader();
+            var papers = loader.Load(xml);
 
+            string result = string.Empty;
 
-            return string.Empty;
+            foreach (var p in papers)
+            {
+                foreach (var e in p.Layer)
+                {
+                    result = $"{e.Code}\n\n";
+                }
+            }
+
+            return CodeCombine(result);
         }
+
+        private string CodeCombine(string code)
+        {
+            var front = "using System;\n" +
+                        "using System.Collections.Generic;\n" +
+                        "using System.Linq;\n" +
+                        "using System.Text;\n" +
+                        "using System.Threading.Tasks;]\n" +
+                        "using System.IO;\n" +
+                        "using System.Drawing;\n\n" +
+
+                        "namespace Wallpaper.Dll\n" +
+                        "{\n" +
+                        "\tpublic class WallpaperCore\n" +
+                        "\t{\n\n";
+
+
+            var end = "\n\n\t}\n" +
+                      "}\n";
+
+            string result = front + code + end;
+
+            return result;
+        }
+        
 
     }
 }
