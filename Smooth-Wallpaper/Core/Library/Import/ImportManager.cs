@@ -73,31 +73,32 @@ namespace Smooth_Wallpaper.Core.Library.Import
             }
 
         }
-        
-        public bool Load(string dir, out object Core)
+
+        public bool Load(string dir, out object Core, out List<PaperInfo> Papers)
         {
             Core = null;
+            Papers = null;
 
             var currentDirectory = Directory.GetCurrentDirectory();
             
             Directory.SetCurrentDirectory(dir);
 
-            var keyValuePairs = new Dictionary<string, Element>();
+            bool result = false;
 
             if (Build(currentDirectory, out CompilerErrorCollection error, out List<PaperInfo> papers))
             {
                 if (LoadDll(@$"{currentDirectory}\core.dll", out Type[] value))
                 {
-                    if (FindType(value, "Wallpaper.Dll.WallpaperCore", out Type result))
+                    if (FindType(value, "Wallpaper.Dll.WallpaperCore", out Type type))
                     {
-                        Core = Activator.CreateInstance(result);
-                        return true;
+                        Core = Activator.CreateInstance(type);
+                        result = true;
                     }
                 }
             }
 
             Directory.SetCurrentDirectory(currentDirectory);
-            return false;
+            return result;
         }
 
         bool LoadDll(string file, out Type[] result)

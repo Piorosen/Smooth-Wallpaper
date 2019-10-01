@@ -43,13 +43,63 @@ namespace Smooth_Wallpaper.Core
 
             return true;
         }
+        
+        private Element SetFunction()
+        {
+            //var ins = instance.GetType();
+
+            //var m1 = ins.GetMethod($"ValueChange_{key}", BindingFlags.Public | BindingFlags.Instance);
+            //var m2 = ins.GetMethod($"PositionConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
+            //var m3 = ins.GetMethod($"ImageConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
+
+            //var ktype = keyValuePairs[key].GetType();
+
+            //keyValuePairs[key].ValueChange = (Func<double, SizeF, ulong, Tuple<double, SizeF>>)
+            //            Delegate.CreateDelegate(
+            //                typeof(Func<double, SizeF, ulong, Tuple<double, SizeF>>),
+            //                instance,
+            //                m1);
+            //keyValuePairs[key].PositionConvert = (Func<Point, ulong, Point>)
+            //            Delegate.CreateDelegate(
+            //                typeof(Func<Point, ulong, Point>),
+            //                instance,
+            //                m2);
+            //keyValuePairs[key].ImageConvert = (Func<ulong, SizeF, Bitmap, Bitmap>)
+            //            Delegate.CreateDelegate(
+            //                typeof(Func<ulong, SizeF, Bitmap, Bitmap>),
+            //                instance,
+            //                m3);
+        }
+
+        private List<Paper> InfoToPaper(List<PaperInfo> Infos)
+        {
+            var result = new List<Paper>();
+
+            foreach (var p in Infos)
+            {
+                var paper = new Paper();
+
+                foreach (var e in p.Layer)
+                {
+                    var element = new Element(e.Image, e.Scale, e.Location, e.Name, e.OriginCode);
+
+
+
+                    paper.Layer.Add(element);
+                }
+
+                result.Add(paper);
+            }
+
+            return result;
+        }
 
         public void Import(string filename)
         {
             ImportManager im = new ImportManager();
-            if (im.Load(filename, out object Core))
+            if (im.Load(filename, out object Core, out List<PaperInfo> Papers))
             {
-
+                
             }
         }
 
