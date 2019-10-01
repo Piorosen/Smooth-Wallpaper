@@ -8,11 +8,8 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class Assemble
     {
-        public string Integrate(string xml)
+        public string Integrate(List<PaperInfo> papers)
         {
-            XmlLoader loader = new XmlLoader();
-            var papers = loader.Load(xml);
-
             string result = string.Empty;
 
             foreach (var p in papers)
