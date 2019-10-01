@@ -56,7 +56,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
 
             foreach (var n in change)
             {
-                Code.Replace(n, $"{n}_{Name}");
+                this.Code = this.Code.Replace(n, $"{n}_{Name}");
             }
         }
 

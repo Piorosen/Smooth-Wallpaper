@@ -10,11 +10,13 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class ImportManager
     {
-        public bool Load(string filename)
+        public bool Load(string dir)
         {
+            Directory.SetCurrentDirectory(dir);
+
             string read = string.Empty;
 
-            using (var sr = new StreamReader(filename))
+            using (var sr = new StreamReader(Path.Combine(dir, "export.xml")))
             {
                 read = sr.ReadToEnd();
             }

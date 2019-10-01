@@ -29,7 +29,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
                         "using System.Collections.Generic;\n" +
                         "using System.Linq;\n" +
                         "using System.Text;\n" +
-                        "using System.Threading.Tasks;]\n" +
+                        "using System.Threading.Tasks;\n" +
                         "using System.IO;\n" +
                         "using System.Drawing;\n\n" +
 

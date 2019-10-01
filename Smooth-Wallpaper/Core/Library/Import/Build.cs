@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.CodeDom.Compiler;
 using System.IO;
+using System.Reflection;
 
 namespace Smooth_Wallpaper.Core.Library.Import
 {
@@ -12,11 +13,12 @@ namespace Smooth_Wallpaper.Core.Library.Import
     {
         public CompilerErrorCollection Compile(string code)
         {
-            CodeDomProvider codeDomProvider = CodeDomProvider.CreateProvider("c#");
+            CodeDomProvider codeDomProvider = CodeDomProvider.CreateProvider("CSharp");
             CompilerParameters compilerParameters = new CompilerParameters();
 
             //.GenerateExecutable 이값을 'false'로 하면 dll로 출력됨
             compilerParameters.GenerateExecutable = false;
+            compilerParameters.ReferencedAssemblies = Assembly.
             compilerParameters.OutputAssembly = @$"{Directory.GetCurrentDirectory()}\core.dll";
 
             CompilerResults compilerResults = codeDomProvider.CompileAssemblyFromSource(compilerParameters, code);

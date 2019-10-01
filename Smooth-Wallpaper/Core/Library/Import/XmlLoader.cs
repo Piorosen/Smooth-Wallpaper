@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
         
         public List<PaperInfo> Load(string xml)
         {
+
             var result = new List<PaperInfo>();
 
             XmlDocument document = new XmlDocument();
@@ -31,7 +33,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
 
         private PaperInfo PaperLoad(XmlNode node)
         {
-            ulong startTime = ulong.Parse(node.Attributes["Start"].Value);
+            ulong startTime = ulong.Parse(node.Attributes["StartTime"].Value);
             ulong length = ulong.Parse(node.Attributes["Length"].Value);
 
             PaperInfo result = new PaperInfo(startTime, length);
