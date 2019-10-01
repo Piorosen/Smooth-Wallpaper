@@ -64,8 +64,8 @@ namespace Smooth_Wallpaper.Core.Library.Export
                         writer.WriteAttributeString(nameof(e.Scale.Height), e.Scale.Height.ToString());
                         writer.WriteEndElement();
 
-                        writer.WriteElementString(nameof(e.Image), SaveBitmap(e.Image, directory));
-                        writer.WriteElementString(nameof(e.Code), SaveCode(e.Code, directory));
+                        writer.WriteElementString(nameof(e.Image), SaveBitmap(e, directory));
+                        writer.WriteElementString(nameof(e.Code), SaveCode(e, directory));
 
                         writer.WriteEndElement();
                     }
@@ -80,14 +80,31 @@ namespace Smooth_Wallpaper.Core.Library.Export
             return true;
         }
 
-        string SaveBitmap(Bitmap image, string dir)
+        string SaveBitmap(ElementInfo e, string dir)
         {
-            return dir;
+            string directory = Path.Combine(dir, "Image");
+
+            Directory.CreateDirectory(directory);
+            directory = Path.Combine(directory, $"{e.Name}.png");
+
+            e.Image.Save(directory);
+            
+            return $"./Image/{e.Name}.png";
         }
 
-        string SaveCode(string code, string dir)
+        string SaveCode(ElementInfo e, string dir)
         {
-            return dir;
+            string directory = Path.Combine(dir, "Code");
+
+            Directory.CreateDirectory(directory);
+            directory = Path.Combine(directory, $"{e.Name}.cs");
+
+            using (StreamWriter sw = new StreamWriter(directory))
+            {
+                sw.WriteLine(e.OriginCode);
+            }
+
+            return $"./Code/{e.Name}.cs";
         }
     }
 }
