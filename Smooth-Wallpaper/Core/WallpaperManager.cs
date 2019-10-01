@@ -27,15 +27,6 @@ namespace Smooth_Wallpaper.Core
                 {
                     new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
                     , new Size(2,2), new Point(200, 100))
-                    {
-                        PositionConvert = (Point location, ulong time) =>
-                        {
-                            var ee = Math.Sin((double)time / 1000) * 200;
-                            Console.WriteLine(new Point(location.X + (int)ee, 100));
-                            return new Point(location.X + (int)ee, 100);
-                        }
-
-                    }
                 }
             };
 

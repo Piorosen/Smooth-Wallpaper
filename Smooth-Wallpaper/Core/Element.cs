@@ -27,7 +27,8 @@ namespace Smooth_Wallpaper.Core
 
 public Point PositionConvert(Point location, ulong time)
 {
-    return location;
+    var ee = Math.Sin((double)time / 1000) * 200;
+    return new Point(location.X + (int)ee, 100);
 }
 
 public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
@@ -55,11 +56,13 @@ public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 
         private static Bitmap RotateImage(Bitmap image, PointF offset, float angle)
         {
+            Bitmap result = new Bitmap(image.Width, image.Height);
+
             //create a new empty bitmap to hold rotated image
-            image.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+            result.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
             //make a graphics object from the empty bitmap
-            using (Graphics g = Graphics.FromImage(image))
+            using (Graphics g = Graphics.FromImage(result))
             {
                 //Put the rotation point in the center of the image
                 g.TranslateTransform(offset.X, offset.Y);
@@ -73,7 +76,7 @@ public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
                 g.DrawImage(image, new PointF(0, 0));
             }
 
-            return image;
+            return result;
 
         }
 
