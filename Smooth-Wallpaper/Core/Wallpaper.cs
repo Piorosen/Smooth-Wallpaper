@@ -11,7 +11,7 @@ namespace Smooth_Wallpaper.Core
 {
     public class Wallpaper
     {
-        protected List<Paper> TimeLayer = new List<Paper>();
+        public List<Paper> TimeLayer = new List<Paper>();
 
         public void AddWallPaper(Paper layer)
         {

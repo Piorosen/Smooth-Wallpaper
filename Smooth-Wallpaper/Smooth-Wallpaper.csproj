@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Element.cs" />
+    <Compile Include="Core\Library\Export\ExportManager.cs" />
     <Compile Include="Core\Library\Import\Assemble.cs" />
     <Compile Include="Core\Library\Import\Build.cs" />
     <Compile Include="Core\Library\Import\ImportManager.cs" />
@@ -140,8 +141,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Library\Export\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

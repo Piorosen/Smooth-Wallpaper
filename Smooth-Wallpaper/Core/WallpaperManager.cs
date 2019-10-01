@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Smooth_Wallpaper.Core.Library.Export;
+using Smooth_Wallpaper.Core.Library.Import;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -25,11 +27,33 @@ namespace Smooth_Wallpaper.Core
             return true;
         }
 
+        public void Export()
+        {
+            ExportManager export = new ExportManager();
 
+            var p = new List<PaperInfo>();
+
+            foreach (var l in wallpaper.TimeLayer)
+            {
+                var paper = new PaperInfo(l.StartTime, l.Length);
+                foreach (var e in l.Layer)
+                {
+                    var elem = new ElementInfo(e.Scale, e.Location, e.
+                    paper.Layer.Add()
+                }
+                p.Add(paper);
+            }
+            p.Add(new PaperInfo()
+            {
+
+
+            });
+
+            export.Export(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"/s.xml", "asdf", p);
+        }
 
         public void Run(Control control)
         {
-
             var p = new Core.Paper
             {
                 StartTime = 0,

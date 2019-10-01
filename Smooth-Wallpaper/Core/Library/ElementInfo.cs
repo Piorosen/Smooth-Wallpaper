@@ -54,12 +54,24 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 "PositionConvert",
                 "ImageConvert"
             };
-            
+
             foreach (var n in change)
             {
                 Code.Replace(n, $"{n}_{Name}");
             }
-            
+        }
+
+        public ElementInfo(Element e)
+        {
+            Name = Count.ToString();
+
+            this.Scale = e.Scale;
+            this.Location = e.Location;
+            this.Code = e.Code;
+            this.OriginCode = e.Code;
+
+            this.Image = e.Image;
+
         }
     }
 }

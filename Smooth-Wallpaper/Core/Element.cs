@@ -11,12 +11,14 @@ namespace Smooth_Wallpaper.Core
     {
         public string Name { get; private set; }
 
-        private Bitmap Image;
+        public Bitmap Image { get; private set; }
 
-        private Point Location = new Point();
+        public Point Location { get; private set; } = new Point();
         public SizeF Scale = new SizeF(1.0F, 1.0F);
 
         public double Rotate = 0;
+
+        public string Code { get; private set; } = string.Empty;
 
         public Element(Bitmap image, Size Scale, Point Location)
         {
