@@ -39,7 +39,7 @@ namespace Smooth_Wallpaper
 
         private void button3_Click(object sender, EventArgs e)
         {
-            w.Import(@"\\Mac\Home\Desktop\git\Smooth-Wallpaper\Smooth-Wallpaper\bin\asdf");
+            w.Import(@"\\Mac\Home\Desktop\git\Smooth-Wallpaper\Smooth-Wallpaper\bin\Debug\asdf");
         }
     }
 }

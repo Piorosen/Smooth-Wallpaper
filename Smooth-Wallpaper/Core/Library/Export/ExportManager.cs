@@ -30,7 +30,7 @@ namespace Smooth_Wallpaper.Core.Library.Export
      /// </WallPaper>
         public bool Export(string saveFolder, string type, List<PaperInfo> papers)
         {
-            string directory = Path.Combine(Path.GetDirectoryName(saveFolder), type);
+            string directory = Path.Combine(saveFolder, type);
             if (Directory.Exists(directory))
             {
                 Directory.Delete(directory, true);

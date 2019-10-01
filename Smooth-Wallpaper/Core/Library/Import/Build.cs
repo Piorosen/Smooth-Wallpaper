@@ -11,7 +11,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class Build
     {
-        public CompilerErrorCollection Compile(string code)
+        public CompilerErrorCollection Compile(string code, string output)
         {
             CodeDomProvider codeDomProvider = CodeDomProvider.CreateProvider("CSharp");
             CompilerParameters compilerParameters = new CompilerParameters();
@@ -23,8 +23,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 compilerParameters.ReferencedAssemblies.Add(asm.Location);
             }
             
-            compilerParameters.OutputAssembly = @$"{Directory.GetCurrentDirectory()}\core.dll";
-
+            compilerParameters.OutputAssembly = @$"{output}\core.dll";
             CompilerResults compilerResults = codeDomProvider.CompileAssemblyFromSource(compilerParameters, code);
 
             if (compilerResults.Errors.Count > 0)

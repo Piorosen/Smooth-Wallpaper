@@ -12,6 +12,8 @@ namespace Smooth_Wallpaper.Core.Library.Import
     {
         public bool Load(string dir)
         {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            
             Directory.SetCurrentDirectory(dir);
 
             string read = string.Empty;
@@ -29,7 +31,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
             var integrate = asm.Integrate(papers);
 
             Build build = new Build();
-            var error = build.Compile(integrate);
+            var error = build.Compile(integrate, currentDirectory);
 
             bool result = false;
             if (error.Count > 0)
@@ -51,7 +53,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 Console.WriteLine("!!!");
             }
 
-
+            Directory.SetCurrentDirectory(currentDirectory);
             return result;
         }
 

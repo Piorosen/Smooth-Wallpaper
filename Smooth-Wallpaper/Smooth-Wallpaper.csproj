@@ -90,7 +90,6 @@
     <Compile Include="Core\Library\ElementInfo.cs" />
     <Compile Include="Core\Library\PaperInfo.cs" />
     <Compile Include="Core\Library\Import\XmlLoader.cs" />
-    <Compile Include="Core\Mode.cs" />
     <Compile Include="Core\Paper.cs" />
     <Compile Include="Core\Wallpaper.cs" />
     <Compile Include="Core\WallpaperManager.cs" />
@@ -102,7 +101,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Class1.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

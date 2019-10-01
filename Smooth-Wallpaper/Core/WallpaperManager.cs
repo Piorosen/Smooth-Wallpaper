@@ -66,8 +66,8 @@ namespace Smooth_Wallpaper.Core
                 }
                 p.Add(paper);
             }
-
-            export.Export(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"/s.xml", "asdf", p);
+            var oo = Directory.GetCurrentDirectory();
+            export.Export(new DirectoryInfo(Directory.GetCurrentDirectory()).FullName, "asdf", p);
         }
 
         public void Run(Control control)
