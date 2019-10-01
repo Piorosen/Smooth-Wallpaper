@@ -82,21 +82,32 @@ namespace Smooth_Wallpaper.Core.Library.Export
 
         string SaveBitmap(ElementInfo e, string dir)
         {
+            string type = Path.GetFileName(dir);
+
             string directory = Path.Combine(dir, "Image");
 
-            Directory.CreateDirectory(directory);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
             directory = Path.Combine(directory, $"{e.Name}.png");
 
             e.Image.Save(directory);
             
-            return $"./Image/{e.Name}.png";
+            return $"./{type}/Image/{e.Name}.png";
         }
 
         string SaveCode(ElementInfo e, string dir)
         {
+            string type = Path.GetFileName(dir);
+
             string directory = Path.Combine(dir, "Code");
 
-            Directory.CreateDirectory(directory);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             directory = Path.Combine(directory, $"{e.Name}.cs");
 
             using (StreamWriter sw = new StreamWriter(directory))
@@ -104,7 +115,7 @@ namespace Smooth_Wallpaper.Core.Library.Export
                 sw.WriteLine(e.OriginCode);
             }
 
-            return $"./Code/{e.Name}.cs";
+            return $"./{type}/Code/{e.Name}.cs";
         }
     }
 }

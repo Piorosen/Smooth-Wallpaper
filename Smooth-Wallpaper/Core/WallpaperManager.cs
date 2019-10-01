@@ -18,42 +18,6 @@ namespace Smooth_Wallpaper.Core
 
         public bool Initialize(string xml)
         {
-            XmlDocument document = new XmlDocument();
-            // document.Load(xml);
-
-            
-
-
-            return true;
-        }
-
-        public void Export()
-        {
-            ExportManager export = new ExportManager();
-
-            var p = new List<PaperInfo>();
-
-            foreach (var l in wallpaper.TimeLayer)
-            {
-                var paper = new PaperInfo(l.StartTime, l.Length);
-                foreach (var e in l.Layer)
-                {
-                    var elem = new ElementInfo(e.Scale, e.Location, e.
-                    paper.Layer.Add()
-                }
-                p.Add(paper);
-            }
-            p.Add(new PaperInfo()
-            {
-
-
-            });
-
-            export.Export(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"/s.xml", "asdf", p);
-        }
-
-        public void Run(Control control)
-        {
             var p = new Core.Paper
             {
                 StartTime = 0,
@@ -75,6 +39,40 @@ namespace Smooth_Wallpaper.Core
             };
 
             wallpaper.AddWallPaper(p);
+
+
+            return true;
+        }
+
+        public void Import(string filename)
+        {
+            ImportManager im = new ImportManager();
+            im.Load(filename);
+        }
+
+        public void Export()
+        {
+            ExportManager export = new ExportManager();
+
+            var p = new List<PaperInfo>();
+
+            foreach (var l in wallpaper.TimeLayer)
+            {
+                var paper = new PaperInfo(l.StartTime, l.Length);
+                foreach (var e in l.Layer)
+                {
+                    var elem = new ElementInfo(e);
+                    paper.Layer.Add(elem);
+                }
+                p.Add(paper);
+            }
+
+            export.Export(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"/s.xml", "asdf", p);
+        }
+
+        public void Run(Control control)
+        {
+            
 
 
             foreach (var image in wallpaper.GetWallpaper(50))
