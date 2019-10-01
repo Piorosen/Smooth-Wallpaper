@@ -10,22 +10,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class XmlLoader
     {
-        /// <WallPaper>
-        ///     <Paper Start="" Length="">
-        ///         <Element>
-        ///             <Location X="" Y="">
-        ///             </Location>
-        ///             <Size Width="" Height="">
-        ///             </Size>
-        ///             <Image>Path</Image>
-        ///             <ImageConvert>Code Path</ImageConvert>
-        ///             <PositionConvert>Code Path</PositionConvert>
-        ///             <ValueChange>Code Path</ValueChange>
-        ///             or
-        ///             <Code>Code</code>
-        ///         </Element>
-        ///     </Paper>
-        /// </WallPaper>
+        
         
         public List<PaperInfo> Load(string xml)
         {
@@ -68,8 +53,8 @@ namespace Smooth_Wallpaper.Core.Library.Import
             Location.X = int.Parse(node[nameof(Location)].Attributes[nameof(Location.X)].Value);
             Location.Y = int.Parse(node[nameof(Location)].Attributes[nameof(Location.Y)].Value);
 
-            Scale.Width = float.Parse(node[nameof(Location)].Attributes[nameof(Scale.Width)].Value);
-            Scale.Height = float.Parse(node[nameof(Location)].Attributes[nameof(Scale.Height)].Value);
+            Scale.Width = float.Parse(node[nameof(Scale)].Attributes[nameof(Scale.Width)].Value);
+            Scale.Height = float.Parse(node[nameof(Scale)].Attributes[nameof(Scale.Height)].Value);
 
             Image = node[nameof(Image)].InnerText;
             Code = node[nameof(Code)].InnerText;
