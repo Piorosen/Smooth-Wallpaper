@@ -26,7 +26,7 @@ namespace Smooth_Wallpaper
                 EndTime = 60 * 60 * 24 * 1000,
                 Layer = new List<Core.Element>()
                 {
-                    new Core.Element(new Bitmap( Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
+                    new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
                     , new Size(2,2), new Point(200, 100))
                     {
                         PositionConvert = (Point location, ulong time) =>
@@ -45,9 +45,9 @@ namespace Smooth_Wallpaper
 
         Core.Wallpaper wallpaper = new Core.Wallpaper();
 
-        private void Button1_Click(object sender, EventArgs e)
+        private async void Button1_Click(object sender, EventArgs e)
         {
-            foreach (var image in wallpaper.GetWallpaper(100))
+            await foreach (var image in wallpaper.GetWallpaper(100))
             {
                 var p = pictureBox1.Image;
                 pictureBox1.Image = image;
