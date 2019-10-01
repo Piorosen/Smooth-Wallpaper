@@ -14,7 +14,7 @@ namespace Smooth_Wallpaper.Core
         private Bitmap Image;
 
         private Point Location = new Point();
-        private SizeF Scale = new SizeF(1.0F, 1.0F);
+        public SizeF Scale = new SizeF(1.0F, 1.0F);
 
         public double Rotate = 0;
 
@@ -24,6 +24,37 @@ namespace Smooth_Wallpaper.Core
             this.Scale = Scale;
             this.Location = Location;
         }
+
+        public static Bitmap RotateImage(Image image, PointF offset, float angle)
+        {
+            if (image == null)
+                throw new ArgumentNullException("image");
+
+            //create a new empty bitmap to hold rotated image
+            Bitmap rotatedBmp = new Bitmap(image.Width, image.Height);
+            rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            //make a graphics object from the empty bitmap
+            Graphics g = Graphics.FromImage(rotatedBmp);
+
+            //Put the rotation point in the center of the image
+            g.TranslateTransform(offset.X, offset.Y);
+
+            //rotate the image
+            g.RotateTransform(angle);
+
+            //move the image back
+            g.TranslateTransform(-offset.X, -offset.Y);
+            //draw passed in image onto graphics object
+            g.DrawImage(image, new PointF(0, 0));
+            return rotatedBmp;
+
+        }
+
+        public Action<Element, ulong> ValueChange = (element, time) =>
+        {
+        
+        };
 
         public Func<Point, ulong, Point> PositionConvert = (location, time) =>
         {
@@ -40,19 +71,18 @@ namespace Smooth_Wallpaper.Core
             return bitmap;
         };
 
-        private Point GetLocation(ulong time)
-        {
-            return PositionConvert(Location, time);
-        }
 
         private Bitmap GetImage(ulong time)
         {
-            return ImageConvert(time, Scale, Rotate, Image);
+            var image = ImageConvert(time, Scale, Rotate, Image);
+            
+            return RotateImage(image, new PointF(image.Width / 2, image.Height / 2), 30);
         }
 
         public (Point Position, Bitmap Image) DrawBitmap(ulong time)
         {
-            return (GetLocation(time), GetImage(time));
+            ValueChange(this, time);
+            return (PositionConvert(Location, time), GetImage(time));
         }
 
     }

@@ -18,14 +18,14 @@ namespace Smooth_Wallpaper.Core
             TimeLayer.Add(layer);
         }
 
-        public async IAsyncEnumerable<Bitmap> GetWallpaper(int delay)
+        public IEnumerable<Bitmap> GetWallpaper(int delay)
         {
             for (; ; )
             {
                 var time = GetTodayTime();
                 var paper = GetTimePaper(time);
                 yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
-                await Task.Delay(delay);
+                Task.Delay(delay).Wait();
             }
         }
 

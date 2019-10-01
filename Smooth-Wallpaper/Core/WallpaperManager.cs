@@ -44,7 +44,7 @@ namespace Smooth_Wallpaper.Core
 
 
 
-        public async void Run(Control control)
+        public void Run(Control control)
         {
 
             var p = new Core.Paper
@@ -70,7 +70,7 @@ namespace Smooth_Wallpaper.Core
             wallpaper.AddWallPaper(p);
 
 
-            await foreach (var image in wallpaper.GetWallpaper(50))
+            foreach (var image in wallpaper.GetWallpaper(50))
             {
                 var dis = control.BackgroundImage;
                 control.BackgroundImage = image;
