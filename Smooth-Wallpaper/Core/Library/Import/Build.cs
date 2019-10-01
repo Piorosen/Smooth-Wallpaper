@@ -15,10 +15,14 @@ namespace Smooth_Wallpaper.Core.Library.Import
         {
             CodeDomProvider codeDomProvider = CodeDomProvider.CreateProvider("CSharp");
             CompilerParameters compilerParameters = new CompilerParameters();
-
+            
             //.GenerateExecutable 이값을 'false'로 하면 dll로 출력됨
             compilerParameters.GenerateExecutable = false;
-            compilerParameters.ReferencedAssemblies = Assembly.
+            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                compilerParameters.ReferencedAssemblies.Add(asm.Location);
+            }
+            
             compilerParameters.OutputAssembly = @$"{Directory.GetCurrentDirectory()}\core.dll";
 
             CompilerResults compilerResults = codeDomProvider.CompileAssemblyFromSource(compilerParameters, code);

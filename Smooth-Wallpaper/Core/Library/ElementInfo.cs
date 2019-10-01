@@ -60,16 +60,16 @@ namespace Smooth_Wallpaper.Core.Library.Import
             }
         }
 
-        public ElementInfo(Element e)
+        public ElementInfo(SizeF Scale, Point Location, Bitmap Image, string Code)
         {
             Name = Count.ToString();
 
-            this.Scale = e.Scale;
-            this.Location = e.Location;
-            this.Code = e.Code;
-            this.OriginCode = e.Code;
+            this.Scale = Scale;
+            this.Location = Location;
+            this.Code = Code;
+            this.OriginCode = Code;
 
-            this.Image = e.Image;
+            this.Image = Image;
 
         }
     }

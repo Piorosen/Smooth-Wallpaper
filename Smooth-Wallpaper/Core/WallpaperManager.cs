@@ -61,7 +61,7 @@ namespace Smooth_Wallpaper.Core
                 var paper = new PaperInfo(l.StartTime, l.Length);
                 foreach (var e in l.Layer)
                 {
-                    var elem = new ElementInfo(e);
+                    var elem = new ElementInfo(e.Scale, e.Location, e.Image, e.Code);
                     paper.Layer.Add(elem);
                 }
                 p.Add(paper);
