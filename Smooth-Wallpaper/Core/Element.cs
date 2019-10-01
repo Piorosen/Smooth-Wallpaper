@@ -9,10 +9,12 @@ namespace Smooth_Wallpaper.Core
 {
     public class Element
     {
-        public Bitmap Image;
+        public string Name { get; private set; }
 
-        public Point Location = new Point();
-        public SizeF Scale = new SizeF(1.0F, 1.0F);
+        private Bitmap Image;
+
+        private Point Location = new Point();
+        private SizeF Scale = new SizeF(1.0F, 1.0F);
 
         public double Rotate = 0;
 
@@ -38,12 +40,12 @@ namespace Smooth_Wallpaper.Core
             return bitmap;
         };
 
-        public Point GetLocation(ulong time)
+        private Point GetLocation(ulong time)
         {
             return PositionConvert(Location, time);
         }
 
-        public Bitmap GetImage(ulong time)
+        private Bitmap GetImage(ulong time)
         {
             return ImageConvert(time, Scale, Rotate, Image);
         }

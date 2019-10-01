@@ -31,7 +31,8 @@ namespace Smooth_Wallpaper.Core
             ///                 <Height></Height>
             ///             </Size>
             ///             <Image>Path</Image>
-            ///             <Code>Code Path</Code>
+            ///             <ImageConvert>Code Path</ImageConvert>
+            ///             <PositionConvert>Code Path</PositionConvert>
             ///         </Element>
             ///     </Paper>
             /// </WallPaper>
