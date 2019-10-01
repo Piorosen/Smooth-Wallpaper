@@ -127,20 +127,18 @@ namespace Smooth_Wallpaper.Core
                 }
                 p.Add(paper);
             }
-            var oo = Directory.GetCurrentDirectory();
+
             export.Export(new DirectoryInfo(Directory.GetCurrentDirectory()).FullName, "asdf", p);
         }
 
         public void Run(Control control)
         {
-            
-
-
             foreach (var image in wallpaper.GetWallpaper(50))
             {
-                var dis = control.BackgroundImage;
-                control.BackgroundImage = image;
+                var dis = (control as PictureBox).Image;
+                (control as PictureBox).Image = image;
                 dis?.Dispose();
+
             }
         }
 

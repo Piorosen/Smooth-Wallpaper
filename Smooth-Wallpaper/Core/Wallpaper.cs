@@ -55,7 +55,10 @@ namespace Smooth_Wallpaper.Core
 
             using (Graphics g = Graphics.FromImage(image))
             {
-                g.FillRectangle(new SolidBrush(baseColor), new Rectangle(0, 0, image.Width, image.Height));
+                using (var color = new SolidBrush(baseColor))
+                {
+                    g.FillRectangle(color, new Rectangle(0, 0, image.Width, image.Height));
+                }
 
                 foreach (var layer in paper)
                 foreach (var p in layer.Layer)
