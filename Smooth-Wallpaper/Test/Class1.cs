@@ -11,9 +11,9 @@ namespace Wallpaper.Dll
     public class WallpaperCore
     {
 
-        void ValueChange_0(ref double Rotate, ref SizeF Scale, ulong time)
+        Tuple<double, SizeF> ValueChange_0(double Rotate, SizeF Scale, ulong time)
         {
-            Rotate = (time / 1000.0) * 90 % 360;
+            return new Tuple<double, SizeF>((time / 1000.0) * 90 % 360, Scale);
             // Scale = new SizeF(1, 1);
         }
 

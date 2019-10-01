@@ -19,9 +19,9 @@ namespace Smooth_Wallpaper.Core
         public double Rotate = 0;
 
         public string Code { get; private set; } =
-@"void ValueChange_0(ref double Rotate, ref SizeF Scale, ulong time)
+@"Tuple<double, SizeF> ValueChange(double Rotate, SizeF Scale, ulong time)
 {
-    Rotate = (time / 1000.0) * 90 % 360;
+    return new Tuple<double, SizeF>((time / 1000.0) * 90 % 360, Scale);
     // Scale = new SizeF(1, 1);
 }
 
@@ -74,7 +74,7 @@ Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 
         }
 
-        public Func<double, SizeF, ulong, (double, SizeF)> ValueChange;
+        public Func<double, SizeF, ulong, Tuple<double, SizeF>> ValueChange;
         public Func<Point, ulong, Point> PositionConvert;
         public Func<ulong, SizeF, Bitmap, Bitmap> ImageConvert;
 
