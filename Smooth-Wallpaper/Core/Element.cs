@@ -47,7 +47,7 @@ Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
             this.Location = Location;
         }
 
-        public static Bitmap RotateImage(Image image, PointF offset, float angle)
+        private static Bitmap RotateImage(Image image, PointF offset, float angle)
         {
             if (image == null)
                 throw new ArgumentNullException("image");
@@ -73,25 +73,9 @@ Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 
         }
 
-        public Action<Element, ulong> ValueChange = (element, time) =>
-        {
-            element.Rotate = (time / 1000.0) * 90 % 360;
-        };
-
-        public Func<Point, ulong, Point> PositionConvert = (location, time) =>
-        {
-            return location;
-        };
-
-        public Func<ulong, SizeF, Bitmap, Bitmap> ImageConvert = (time, scale, bitmap) =>
-        {
-            Bitmap result = bitmap.Clone() as Bitmap;
-            using (Graphics g = Graphics.FromImage(result))
-            {
-                bitmap.SetResolution(g.DpiX * (1.0F / scale.Width), g.DpiY * (1.0F / scale.Height));
-            }
-            return bitmap;
-        };
+        public Action<Element, ulong> ValueChange;
+        public Func<Point, ulong, Point> PositionConvert;
+        public Func<ulong, SizeF, Bitmap, Bitmap> ImageConvert;
 
 
         private Bitmap GetImage(ulong time)
