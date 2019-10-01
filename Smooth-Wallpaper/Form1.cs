@@ -14,17 +14,19 @@ namespace Smooth_Wallpaper
 {
     public partial class Form1 : Form
     {
+        WallpaperManager w = new WallpaperManager();
+
         public Form1()
         {
             InitializeComponent();
 
-           
+            w.Initialize("");
 
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            WallpaperManager w = new WallpaperManager();
+            
             w.Run(pictureBox1);
         }
 

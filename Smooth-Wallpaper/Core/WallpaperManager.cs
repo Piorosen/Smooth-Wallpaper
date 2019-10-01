@@ -6,14 +6,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Smooth_Wallpaper.Core
 {
     public class WallpaperManager
     {
+        Wallpaper wallpaper = new Wallpaper();
+
+        public bool Initialize(string xml)
+        {
+            XmlDocument document = new XmlDocument();
+            // document.Load(xml);
+
+            /// <WallPaper>
+            ///     <Paper Start="" End="">
+            ///         <Element>
+            ///             <Location>
+            ///                 <X></X>
+            ///                 <Y></Y>
+            ///             </Location>
+            ///             <Size>
+            ///                 <Width></Width>
+            ///                 <Height></Height>
+            ///             </Size>
+            ///             <Image>Path</Image>
+            ///             <Code>Code Path</Code>
+            ///         </Element>
+            ///     </Paper>
+            /// </WallPaper>
+            /// 
+
+
+            return true;
+        }
+
+
+
         public async void Run(Control control)
         {
-            Wallpaper wallpaper = new Wallpaper();
 
             var p = new Core.Paper
             {
