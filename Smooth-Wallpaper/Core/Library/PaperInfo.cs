@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Smooth_Wallpaper.Core.Library.Import
 {
-    class PaperInfo
+    public class PaperInfo
     {
+        public ulong StartTime;
+        public ulong Length;
+
+        public List<ElementInfo> Layer = new List<ElementInfo>();
     }
 }

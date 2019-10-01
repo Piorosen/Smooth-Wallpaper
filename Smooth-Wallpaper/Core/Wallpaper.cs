@@ -35,7 +35,7 @@ namespace Smooth_Wallpaper.Core
 
             foreach (var p in TimeLayer)
             {
-                if (p.StartTime <= time && time < p.EndTime)
+                if (p.StartTime <= time && time < p.StartTime + p.Length)
                 {
                     result.Add(p);
                 }

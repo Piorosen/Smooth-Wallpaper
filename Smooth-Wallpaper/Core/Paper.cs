@@ -16,7 +16,7 @@ namespace Smooth_Wallpaper.Core
         /// <summary>
         /// Second
         /// </summary>
-        public ulong EndTime;
+        public ulong Length;
 
         public List<Element> Layer = new List<Element>();
     }

@@ -28,8 +28,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
     ///         </Element>
     ///     </Paper>
     /// </WallPaper>
-    /// 
-    public class PaperInfo
+    public class ElementInfo
     {
         public Size Scale { get; private set; }
         public Point Location { get; private set; }
@@ -37,7 +36,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
         public Bitmap Image { get; private set; }
         public string Code { get; private set; }
 
-        public PaperInfo(Size Scale, Point Location, string Image, string Code)
+        public ElementInfo(Size Scale, Point Location, string Image, string Code)
         {
             this.Scale = Scale;
             this.Location = Location;

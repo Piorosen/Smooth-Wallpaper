@@ -33,7 +33,7 @@ namespace Smooth_Wallpaper.Core
             var p = new Core.Paper
             {
                 StartTime = 0,
-                EndTime = 60 * 60 * 24 * 1000,
+                Length = 60 * 60 * 24 * 1000,
                 Layer = new List<Core.Element>()
                 {
                     new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
