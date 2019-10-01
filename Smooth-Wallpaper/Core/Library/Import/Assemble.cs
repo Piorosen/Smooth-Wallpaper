@@ -32,7 +32,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
                         "using System.Threading.Tasks;\n" +
                         "using System.IO;\n" +
                         "using System.Drawing;\n\n" +
-
+                        
                         "namespace Wallpaper.Dll\n" +
                         "{\n" +
                         "\tpublic class WallpaperCore\n" +

@@ -19,18 +19,18 @@ namespace Smooth_Wallpaper.Core
         public double Rotate = 0;
 
         public string Code { get; private set; } =
-@"Tuple<double, SizeF> ValueChange(double Rotate, SizeF Scale, ulong time)
+@"public Tuple<double, SizeF> ValueChange(double Rotate, SizeF Scale, ulong time)
 {
     return new Tuple<double, SizeF>((time / 1000.0) * 90 % 360, Scale);
     // Scale = new SizeF(1, 1);
 }
 
-Point PositionConvert(Point location, ulong time)
+public Point PositionConvert(Point location, ulong time)
 {
     return location;
 }
 
-Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
+public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 {
     Bitmap result = bitmap.Clone() as Bitmap;
     using (Graphics g = Graphics.FromImage(result))
@@ -41,8 +41,14 @@ Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 }";
 
 
-        public Element(Bitmap image, Size Scale, Point Location)
+        public Element(Bitmap image, SizeF Scale, Point Location, string Name = "", string OriginCode = null)
         {
+            if (OriginCode != null)
+            {
+                this.Code = OriginCode;
+            }
+
+            this.Name = Name;
             this.Image = image;
             this.Scale = Scale;
             this.Location = Location;

@@ -48,9 +48,38 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 Console.WriteLine("Success");
             }
 
+            Dictionary<string, Element> keyValuePairs = new Dictionary<string, Element>();
+
+            foreach (var p in papers)
+            {
+                foreach (var e in p.Layer)
+                {
+                    keyValuePairs[e.Name] = new Element(e.Image, e.Scale, e.Location, e.Name, e.OriginCode);
+                }
+            }
+
             if (LoadDll(@$"{currentDirectory}\core.dll", out Type[] value))
             {
-                Console.WriteLine("!!!");
+                Type type = null;
+
+                foreach (var find in value)
+                {
+                    if (find.FullName == "Wallpaper.Dll.WallpaperCore")
+                    {
+                        type = find;
+                        break;
+                    }
+                }
+
+                if (type == null)
+                {
+                    result = false;
+                }
+
+                foreach (var key in keyValuePairs.Keys)
+                {
+                    
+                }
             }
 
             Directory.SetCurrentDirectory(currentDirectory);
