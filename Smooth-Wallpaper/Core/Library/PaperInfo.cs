@@ -12,6 +12,14 @@ namespace Smooth_Wallpaper.Core.Library.Import
         public ulong StartTime { get; private set; }
         public ulong Length { get; private set; }
 
-        public List<ElementInfo> Layer { get; private set; } = new List<ElementInfo>();
+        public List<ElementInfo> Layer { get; private set; }
+
+
+        public PaperInfo(ulong StartTime, ulong Length)
+        {
+            this.StartTime = StartTime;
+            this.Length = Length;
+            Layer = new List<ElementInfo>();
+        }
     }
 }

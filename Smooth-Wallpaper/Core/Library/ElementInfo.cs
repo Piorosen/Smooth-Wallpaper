@@ -12,7 +12,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
     {
         public string Name { get; private set; }
 
-        public Size Scale { get; private set; }
+        public SizeF Scale { get; private set; }
         public Point Location { get; private set; }
 
         public Bitmap Image { get; private set; }
@@ -27,7 +27,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
             }
         }
 
-        public ElementInfo(Size Scale, Point Location, string Image, string Code)
+        public ElementInfo(SizeF Scale, Point Location, string Image, string Code)
         {
             Name = Count.ToString();
 
