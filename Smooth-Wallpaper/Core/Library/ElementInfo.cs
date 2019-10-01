@@ -39,6 +39,23 @@ namespace Smooth_Wallpaper.Core.Library.Import
             {
                 this.Code = sr.ReadToEnd();
             }
+
+            /// public Action<Element, ulong> ValueChange
+            /// public Func<Point, ulong, Point> PositionConvert
+            /// public Func<ulong, SizeF, double, Bitmap, Bitmap> ImageConvert
+
+            var change = new List<string>
+            {
+                "ValueChange",
+                "PositionConvert",
+                "ImageConvert"
+            };
+            
+            foreach (var n in change)
+            {
+                Code.Replace(n, $"{n}_{Name}");
+            }
+            
         }
     }
 }
