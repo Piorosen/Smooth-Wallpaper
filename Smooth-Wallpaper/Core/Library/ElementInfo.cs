@@ -47,7 +47,6 @@ namespace Smooth_Wallpaper.Core.Library.Import
             /// public Func<Point, ulong, Point> PositionConvert
             /// public Func<ulong, SizeF, double, Bitmap, Bitmap> ImageConvert
 
-
             var change = new List<string>
             {
                 "ValueChange",
