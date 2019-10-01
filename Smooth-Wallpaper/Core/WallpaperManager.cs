@@ -111,7 +111,7 @@ namespace Smooth_Wallpaper.Core
             }
         }
 
-        public void Export()
+        public void Export(string name)
         {
             ExportManager export = new ExportManager();
 
@@ -128,7 +128,7 @@ namespace Smooth_Wallpaper.Core
                 p.Add(paper);
             }
 
-            export.Export(new DirectoryInfo(Directory.GetCurrentDirectory()).FullName, "asdf", p);
+            export.Export(new DirectoryInfo(Directory.GetCurrentDirectory()).FullName, name, p);
         }
 
         public void Run(Control control)
@@ -138,7 +138,6 @@ namespace Smooth_Wallpaper.Core
                 var dis = (control as PictureBox).Image;
                 (control as PictureBox).Image = image;
                 dis?.Dispose();
-
             }
         }
 

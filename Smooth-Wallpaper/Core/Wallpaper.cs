@@ -65,6 +65,7 @@ namespace Smooth_Wallpaper.Core
                 {
                     var e = p.DrawBitmap(time);
                     g.DrawImage(e.Image, e.Position);
+                    e.Image.Dispose();
                 }
             }
 

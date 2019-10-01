@@ -32,8 +32,7 @@ public Point PositionConvert(Point location, ulong time)
 
 public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 {
-    Bitmap result = bitmap.Clone() as Bitmap;
-    using (Graphics g = Graphics.FromImage(result))
+    using (Graphics g = Graphics.FromImage(bitmap))
     {
         bitmap.SetResolution(g.DpiX * (1.0F / scale.Width), g.DpiY * (1.0F / scale.Height));
     }
@@ -56,15 +55,11 @@ public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 
         private static Bitmap RotateImage(Bitmap image, PointF offset, float angle)
         {
-            if (image == null)
-                throw new ArgumentNullException("image");
-
             //create a new empty bitmap to hold rotated image
-            Bitmap rotatedBmp = new Bitmap(image.Width, image.Height);
-            rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+            image.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
             //make a graphics object from the empty bitmap
-            using (Graphics g = Graphics.FromImage(rotatedBmp))
+            using (Graphics g = Graphics.FromImage(image))
             {
                 //Put the rotation point in the center of the image
                 g.TranslateTransform(offset.X, offset.Y);
@@ -78,8 +73,7 @@ public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
                 g.DrawImage(image, new PointF(0, 0));
             }
 
-           
-            return rotatedBmp;
+            return image;
 
         }
 
@@ -90,8 +84,7 @@ public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
 
         private Bitmap GetImage(ulong time)
         {
-            var image = ImageConvert(time, Scale, Image);
-
+            var image = ImageConvert(time, Scale, Image.Clone() as Bitmap);
             return RotateImage(image, new PointF(image.Width / 2, image.Height / 2), (float)Rotate);
         }
 
