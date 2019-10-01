@@ -18,13 +18,14 @@ namespace Smooth_Wallpaper.Core
             TimeLayer.Add(layer);
         }
 
-        public IEnumerable<Bitmap> GetWallpaper()
+        public IEnumerable<Bitmap> GetWallpaper(int delay)
         {
             for (; ; )
             {
                 var time = GetTodayTime();
                 var paper = GetTimePaper(time);
                 yield return GetTimeBitmap(paper, time, Color.FromArgb(255, 255, 255));
+                Task.Delay(delay).Wait();
             }
         }
 
@@ -53,7 +54,7 @@ namespace Smooth_Wallpaper.Core
 
         protected Bitmap GetTimeBitmap(List<Paper> paper, ulong time, Color baseColor)
         {
-            var bound = Screen.AllScreens[1].Bounds;
+            var bound = Screen.AllScreens[0].Bounds;
             var image = new Bitmap(bound.Width, bound.Height);
 
             using (Graphics g = Graphics.FromImage(image))

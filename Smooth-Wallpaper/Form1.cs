@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,17 @@ namespace Smooth_Wallpaper
         public Form1()
         {
             InitializeComponent();
+
+           
+
+
             var p = new Core.Paper
             {
                 StartTime = 0,
                 EndTime = 60 * 60 * 24 * 1000,
                 Layer = new List<Core.Element>()
                 {
-                    new Core.Element(new Bitmap(@"C:\Users\aoika\Desktop\git\Smooth-Wallpaper\Smooth-Wallpaper\1.png")
+                    new Core.Element(new Bitmap( Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
                     , new Size(2,2), new Point(200, 100))
                     {
                         PositionConvert = (Point location, ulong time) =>
@@ -42,7 +47,7 @@ namespace Smooth_Wallpaper
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            foreach (var image in wallpaper.GetWallpaper())
+            foreach (var image in wallpaper.GetWallpaper(100))
             {
                 var p = pictureBox1.Image;
                 pictureBox1.Image = image;
