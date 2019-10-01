@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -12,28 +13,24 @@ namespace Smooth_Wallpaper.Core.Library.Import
 {
     public class ImportManager
     {
-        public bool Load(string dir)
+        bool Build(string currentDir, out CompilerErrorCollection error, out List<PaperInfo> papers)
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
-            
-            Directory.SetCurrentDirectory(dir);
-
             string read = string.Empty;
 
-            using (var sr = new StreamReader(Path.Combine(dir, "export.xml")))
+            using (var sr = new StreamReader(Path.Combine(Directory.GetCurrentDirectory(), "export.xml")))
             {
                 read = sr.ReadToEnd();
             }
 
 
             XmlLoader loader = new XmlLoader();
-            var papers = loader.Load(read);
+            papers = loader.Load(read);
 
             Assemble asm = new Assemble();
             var integrate = asm.Integrate(papers);
 
             Build build = new Build();
-            var error = build.Compile(integrate, currentDirectory);
+            error = build.Compile(integrate, currentDir);
 
             bool result = false;
             if (error.Count > 0)
@@ -50,71 +47,57 @@ namespace Smooth_Wallpaper.Core.Library.Import
                 Console.WriteLine("Success");
             }
 
-            Dictionary<string, Element> keyValuePairs = new Dictionary<string, Element>();
+            return result;
+        }
 
-            foreach (var p in papers)
+        bool FindType(Type[] value, string Name, out Type result)
+        {
+            result = null;
+
+            foreach (var find in value)
             {
-                foreach (var e in p.Layer)
+                if (find.FullName == Name)
                 {
-                    keyValuePairs[e.Name] = new Element(e.Image, e.Scale, e.Location, e.Name, e.OriginCode);
+                    result = find;
+                    break;
                 }
             }
 
-            if (LoadDll(@$"{currentDirectory}\core.dll", out Type[] value))
+            if (result == null)
             {
-                Type type = null;
+                return false;
+            }
+            else
+            {
+                return true;
+            }
 
-                foreach (var find in value)
+        }
+        
+        public bool Load(string dir, out object Core)
+        {
+            Core = null;
+
+            var currentDirectory = Directory.GetCurrentDirectory();
+            
+            Directory.SetCurrentDirectory(dir);
+
+            var keyValuePairs = new Dictionary<string, Element>();
+
+            if (Build(currentDirectory, out CompilerErrorCollection error, out List<PaperInfo> papers))
+            {
+                if (LoadDll(@$"{currentDirectory}\core.dll", out Type[] value))
                 {
-                    if (find.FullName == "Wallpaper.Dll.WallpaperCore")
+                    if (FindType(value, "Wallpaper.Dll.WallpaperCore", out Type result))
                     {
-                        type = find;
-                        break;
+                        Core = Activator.CreateInstance(result);
+                        return true;
                     }
-                }
-
-                if (type == null)
-                {
-                    result = false;
-                }
-
-                var change = new List<string>
-            {
-                "ValueChange",
-                "PositionConvert",
-                "ImageConvert"
-            };
-
-                var instance = Activator.CreateInstance(type);
-
-                foreach (var key in keyValuePairs.Keys)
-                {
-                    var m1 = instance.GetType().GetMethod($"ValueChange_{key}", BindingFlags.Public | BindingFlags.Instance);
-                    var m2 = instance.GetType().GetMethod($"PositionConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
-                    var m3 = instance.GetType().GetMethod($"ImageConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
-                    
-                    var ktype = keyValuePairs[key].GetType();
-                    
-                    keyValuePairs[key].ValueChange = (Func<double, SizeF, ulong, Tuple<double, SizeF>>)
-                                Delegate.CreateDelegate(
-                                    typeof(Func<double, SizeF, ulong, Tuple<double, SizeF>>),
-                                    instance,
-                                    m1);
-                    keyValuePairs[key].PositionConvert = (Func<Point, ulong, Point>)
-                                Delegate.CreateDelegate(
-                                    typeof(Func<Point, ulong, Point>),
-                                    instance,
-                                    m2);
-                    keyValuePairs[key].ImageConvert = (Func<ulong, SizeF, Bitmap, Bitmap>)
-                                Delegate.CreateDelegate(
-                                    typeof(Func<ulong, SizeF, Bitmap, Bitmap>),
-                                    instance,
-                                    m3);
                 }
             }
 
             Directory.SetCurrentDirectory(currentDirectory);
-            return result;
+            return false;
         }
 
         bool LoadDll(string file, out Type[] result)

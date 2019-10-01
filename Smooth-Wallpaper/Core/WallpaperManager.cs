@@ -47,7 +47,10 @@ namespace Smooth_Wallpaper.Core
         public void Import(string filename)
         {
             ImportManager im = new ImportManager();
-            im.Load(filename);
+            if (im.Load(filename, out object Core))
+            {
+
+            }
         }
 
         public void Export()
