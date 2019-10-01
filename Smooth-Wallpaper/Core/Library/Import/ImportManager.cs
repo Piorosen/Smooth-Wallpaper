@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,9 +78,38 @@ namespace Smooth_Wallpaper.Core.Library.Import
                     result = false;
                 }
 
+                var change = new List<string>
+            {
+                "ValueChange",
+                "PositionConvert",
+                "ImageConvert"
+            };
+
+                var instance = Activator.CreateInstance(type);
+
                 foreach (var key in keyValuePairs.Keys)
                 {
+                    var m1 = instance.GetType().GetMethod($"ValueChange_{key}", BindingFlags.Public | BindingFlags.Instance);
+                    var m2 = instance.GetType().GetMethod($"PositionConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
+                    var m3 = instance.GetType().GetMethod($"ImageConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
                     
+                    var ktype = keyValuePairs[key].GetType();
+                    
+                    keyValuePairs[key].ValueChange = (Func<double, SizeF, ulong, Tuple<double, SizeF>>)
+                                Delegate.CreateDelegate(
+                                    typeof(Func<double, SizeF, ulong, Tuple<double, SizeF>>),
+                                    instance,
+                                    m1);
+                    keyValuePairs[key].PositionConvert = (Func<Point, ulong, Point>)
+                                Delegate.CreateDelegate(
+                                    typeof(Func<Point, ulong, Point>),
+                                    instance,
+                                    m2);
+                    keyValuePairs[key].ImageConvert = (Func<ulong, SizeF, Bitmap, Bitmap>)
+                                Delegate.CreateDelegate(
+                                    typeof(Func<ulong, SizeF, Bitmap, Bitmap>),
+                                    instance,
+                                    m3);
                 }
             }
 
