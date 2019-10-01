@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,54 +39,56 @@ namespace Smooth_Wallpaper.Core
                 }
             };
 
-            wallpaper.AddWallPaper(p);
+            wallpaper.TimeLayer.Add(p);
 
 
             return true;
         }
         
-        private Element SetFunction()
+        private Element SetFunction(Element element, object core)
         {
-            //var ins = instance.GetType();
+            var ins = core.GetType();
 
-            //var m1 = ins.GetMethod($"ValueChange_{key}", BindingFlags.Public | BindingFlags.Instance);
-            //var m2 = ins.GetMethod($"PositionConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
-            //var m3 = ins.GetMethod($"ImageConvert_{key}", BindingFlags.Public | BindingFlags.Instance);
+            var m1 = ins.GetMethod($"ValueChange_{element.Name}", BindingFlags.Public | BindingFlags.Instance);
+            var m2 = ins.GetMethod($"PositionConvert_{element.Name}", BindingFlags.Public | BindingFlags.Instance);
+            var m3 = ins.GetMethod($"ImageConvert_{element.Name}", BindingFlags.Public | BindingFlags.Instance);
 
-            //var ktype = keyValuePairs[key].GetType();
+            element.ValueChange = (Func<double, SizeF, ulong, Tuple<double, SizeF>>)
+                        Delegate.CreateDelegate(
+                            typeof(Func<double, SizeF, ulong, Tuple<double, SizeF>>),
+                            core,
+                            m1);
+            element.PositionConvert = (Func<Point, ulong, Point>)
+                        Delegate.CreateDelegate(
+                            typeof(Func<Point, ulong, Point>),
+                            core,
+                            m2);
+            element.ImageConvert = (Func<ulong, SizeF, Bitmap, Bitmap>)
+                        Delegate.CreateDelegate(
+                            typeof(Func<ulong, SizeF, Bitmap, Bitmap>),
+                            core,
+                            m3);
 
-            //keyValuePairs[key].ValueChange = (Func<double, SizeF, ulong, Tuple<double, SizeF>>)
-            //            Delegate.CreateDelegate(
-            //                typeof(Func<double, SizeF, ulong, Tuple<double, SizeF>>),
-            //                instance,
-            //                m1);
-            //keyValuePairs[key].PositionConvert = (Func<Point, ulong, Point>)
-            //            Delegate.CreateDelegate(
-            //                typeof(Func<Point, ulong, Point>),
-            //                instance,
-            //                m2);
-            //keyValuePairs[key].ImageConvert = (Func<ulong, SizeF, Bitmap, Bitmap>)
-            //            Delegate.CreateDelegate(
-            //                typeof(Func<ulong, SizeF, Bitmap, Bitmap>),
-            //                instance,
-            //                m3);
+            return element;
         }
 
-        private List<Paper> InfoToPaper(List<PaperInfo> Infos)
+        private List<Paper> InfoToPaper(List<PaperInfo> Infos, object core)
         {
             var result = new List<Paper>();
 
             foreach (var p in Infos)
             {
-                var paper = new Paper();
+                var paper = new Paper
+                {
+                    StartTime = p.StartTime,
+                    Length = p.Length,
+                };
 
                 foreach (var e in p.Layer)
                 {
                     var element = new Element(e.Image, e.Scale, e.Location, e.Name, e.OriginCode);
 
-
-
-                    paper.Layer.Add(element);
+                    paper.Layer.Add(SetFunction(element, core));
                 }
 
                 result.Add(paper);
@@ -99,7 +102,12 @@ namespace Smooth_Wallpaper.Core
             ImportManager im = new ImportManager();
             if (im.Load(filename, out object Core, out List<PaperInfo> Papers))
             {
-                
+                wallpaper.TimeLayer.Clear();
+
+                foreach (var paper in InfoToPaper(Papers, Core))
+                {
+                    wallpaper.TimeLayer.Add(paper);
+                }
             }
         }
 

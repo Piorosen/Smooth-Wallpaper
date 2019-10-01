@@ -87,6 +87,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
 
             if (Build(currentDirectory, out CompilerErrorCollection error, out List<PaperInfo> papers))
             {
+                Papers = papers;
                 if (LoadDll(@$"{currentDirectory}\core.dll", out Type[] value))
                 {
                     if (FindType(value, "Wallpaper.Dll.WallpaperCore", out Type type))

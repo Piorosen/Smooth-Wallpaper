@@ -13,10 +13,6 @@ namespace Smooth_Wallpaper.Core
     {
         public List<Paper> TimeLayer = new List<Paper>();
 
-        public void AddWallPaper(Paper layer)
-        {
-            TimeLayer.Add(layer);
-        }
 
         public IEnumerable<Bitmap> GetWallpaper(int delay)
         {
