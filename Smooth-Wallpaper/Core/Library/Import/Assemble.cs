@@ -16,7 +16,7 @@ namespace Smooth_Wallpaper.Core.Library.Import
             {
                 foreach (var e in p.Layer)
                 {
-                    result = $"{e.Code}\n\n";
+                    result += $"{e.Code}\n\n";
                 }
             }
 

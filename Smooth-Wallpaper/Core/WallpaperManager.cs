@@ -26,11 +26,31 @@ namespace Smooth_Wallpaper.Core
                 Layer = new List<Core.Element>()
                 {
                     new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
-                    , new Size(2,2), new Point(200, 100))
+                    , new Size(1,1), new Point(200, 100)),
+                    new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
+                    , new Size(1,1), new Point(400, 200)),
+                    new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
+                    , new Size(1,1), new Point(500, 300))
+                }
+            };
+
+            var p2 = new Core.Paper
+            {
+                StartTime = 0,
+                Length = 60 * 60 * 24 * 1000,
+                Layer = new List<Core.Element>()
+                {
+                    new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
+                    , new Size(2,2), new Point(500, 100)),
+                    new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
+                    , new Size(2,2), new Point(500, 200)),
+                    new Core.Element(new Bitmap(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/1.png")
+                    , new Size(2,2), new Point(500, 300))
                 }
             };
 
             wallpaper.TimeLayer.Add(p);
+            wallpaper.TimeLayer.Add(p2);
 
 
             return true;

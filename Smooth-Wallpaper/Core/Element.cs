@@ -28,7 +28,7 @@ namespace Smooth_Wallpaper.Core
 public Point PositionConvert(Point location, ulong time)
 {
     var ee = Math.Sin((double)time / 1000) * 200;
-    return new Point(location.X + (int)ee, 100);
+    return new Point(location.X + (int)ee, location.Y);
 }
 
 public Bitmap ImageConvert(ulong time, SizeF scale, Bitmap bitmap)
